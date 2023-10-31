@@ -16,6 +16,24 @@ const Bookings = () => {
       });
   }, [url]);
 
+  const handleDelete = (id) => {
+    const proced = confirm("Are you sure you want to delete");
+    if (proced) {
+      fetch(`http://localhost:5000/bookings/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.deletedCount > 0) {
+            alert("Deleted Successfully");
+            const remaining = bookings.filter((bookings) => bookings._id !== id);
+            setBookings(remaining);
+          }
+        });
+    }
+  };
+
   return (
     <div>
       <h1 className="text-5xl">Your Bookings: {bookings.length}</h1>
@@ -40,7 +58,7 @@ const Bookings = () => {
           <tbody>
             {/* row 1 */}
             {bookings.map((booking) => (
-              <BookingRow key={booking._id} booking={booking}></BookingRow>
+              <BookingRow key={booking._id} booking={booking} handleDelete={handleDelete}></BookingRow>
             ))}
           </tbody>
         </table>
