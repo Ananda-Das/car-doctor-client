@@ -8,6 +8,7 @@ const Bookings = () => {
   const [bookings, setBookings] = useState([]);
 
   const url = `http://localhost:5000/bookings?email=${user?.email}`;
+  // const url = `http://localhost:5000/bookings?email=landlord@gmail.com`;
 
   useEffect(() => {
     // fetch(url)
